@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block th:fragment="menubar">
+		<!-- Sidebar -->
+		<ul id="menu">
+			<li><a class="nav-link pt-2" th:href="@{/}"> <i
+					class="fas fa-user"></i> <span>ホーム</span>
+			</a></li>
+			<li><a class="nav-link pt-2" th:href="@{/application/list}">
+					<i class="fas fa-user"></i> <span>新着申請</span>
+			</a></li>
+			<li><a class="nav-link pt-2" th:href="@{/report/list}"> <i
+					class="fas fa-user"></i> <span>新着報告</span>
+			</a></li>
+			<li><a class="nav-link pt-2" th:href="@{/search}"> <i
+					class="fas fa-user"></i> <span>検索</span>
+			</a></li>
+		</ul>
+	</th:block>
+
+	<th:block th:fragment="header">
+		<!-- Header -->
+		<div id="header">
+			<h1>
+				<a th:href="@{/}"><img src="/images/ロゴ.png" alt="先生側"
+					width="420" height="80"></a>
+			</h1>
+		</div>
+	</th:block>
+	<th:block th:fragment="footer">
+		<!-- フッタ -->
+		<div id="footer">
+			<small>Copyright (c) 会社会社会社会社会社会社 All Rights Reserved.</small>
+		</div>
+	</th:block>
+</body>
+</html>

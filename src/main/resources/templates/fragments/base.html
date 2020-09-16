@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<th:block th:fragment="header">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>就職活動管理システム</title>
+
+	<!-- These are required CSS -->
+	<link rel="stylesheet"
+		th:href="@{/webjars/font-awesome/css/all.min.css}">
+	<link rel="stylesheet"
+		th:href="@{/webjars/startbootstrap-sb-admin-2/css/sb-admin-2.min.css}">
+
+	<link rel="stylesheet" th:href="@{/css/base.css}">
+	<!-- link rel="stylesheet" th:href="@{/css/table.css}"-->
+</th:block>
+</head>
+<body>
+	<!-- These are required JS -->
+	<th:block th:fragment="scripts">
+		<script th:src="@{/webjars/jquery/jquery.min.js}">
+
+		</script>
+		<script th:src="@{/webjars/popper.js/umd/popper.min.js}">
+
+		</script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+		<script
+			th:src="@{/webjars/startbootstrap-sb-admin-2/js/sb-admin-2.min.js}"></script>
+		<script th:src="@{/webjars/chartjs/Chart.min.js}">
+
+		</script>
+		<script>
+			jQuery(function($) {
+				$('tbody tr[data-href]').addClass('clickable').click(
+						function() {
+							window.location = $(this).attr('data-href');
+						}).find('a').hover(function() {
+					$(this).parents('tr').unbind('click');
+				}, function() {
+					$(this).parents('tr').click(function() {
+						window.location = $(this).attr('data-href');
+					});
+				});
+			});
+		</script>
+	</th:block>
+</body>
+</html>

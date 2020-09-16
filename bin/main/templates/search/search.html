@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragments/base :: header"></th:block>
+</head>
+<body>
+
+	<div id="pagebody">
+		<th:block th:insert="fragments/menubar :: header"></th:block>
+
+
+		<th:block th:insert="fragments/menubar :: menubar"></th:block>
+		<div id="pagebody">
+			<form th:action="@{/result}" method="post">
+				<div>
+					<label for="name">名前</label> <input type="text" name="name">
+				</div>
+				<div>
+					<select name="depart">
+						<option value=""> </option>
+						<option value="R">R</option>
+						<option value="S">S</option>
+						<option value="G">G</option>
+						<option value="M">M</option>
+						<option value="B">B</option>
+					</select>
+
+
+					<input type="text" name="year">
+				</div>
+				<div>
+					<label>A</label> <input type="text" name="class">
+				</div>
+				<div>
+					<label for="name">企業名</label> <input type="text" name="company">
+				</div>
+
+				<button type="submit" class="submit_button">検索</button>
+			</form>
+
+
+		</div>
+		<th:block th:insert="fragments/menubar :: footer"></th:block>
+
+	</div>
+</body>
+
+</html>

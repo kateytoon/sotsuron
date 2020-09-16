@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragments/base :: header"></th:block>
+
+</head>
+<body>
+
+	<div id="pagebody">
+
+		<th:block th:insert="fragments/menubar :: header"></th:block>
+
+
+		<th:block th:insert="fragments/menubar :: menubar"></th:block>
+		<th:block th:insert="fragments/base :: script"></th:block>
+		<!-- メインコンテンツ -->
+		<div align="center">
+			<p>検索結果</p>
+
+			<div th:if="${Datas.size() == 0}">条件に一致するデータはありませんでした。</div>
+			<table th:if="${Datas.size() > 0}">
+				<thead>
+					<tr>
+						<th>出欠</th>
+						<th>名前</th>
+						<th>クラス番号</th>
+						<th>場所</th>
+						<th>日時</th>
+						<th>内容</th>
+						<th>状態</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:each="object : ${Datas}" th:object="${object}" >
+						<td>
+							<div th:switch="*{API_ATTEND}">
+								<span th:case="1" th:text="欠席"></span><span
+									th:case="2" th:text="1コマ目遅刻"></span><span
+									th:case="3" th:text="2コマ目遅刻"></span><span
+									th:case="4" th:text="3コマ目遅刻"></span><span
+									th:case="5" th:text="4コマ目遅刻"></span><span
+									th:case="6" th:text="1コマ目早退"></span><span
+									th:case="7" th:text="2コマ目早退"></span><span
+									th:case="8" th:text="3コマ目早退"></span><span
+									th:case="9" th:text="4コマ目早退"></span><span
+									th:case="*">ずっといる</span>
+							</div>
+						</td>
+						<td ><a th:href="@{/app/detail/{id}(id=*{API_ID})}" th:text="*{student.S_NAME}"></a></td>
+						<td><span th:text="*{student.department.D_VALUE}"></span><span
+						th:text="*{student.S_YEAR}+'A'+*{student.classroom.R_NAME}"></span><span
+						th:if="*{student.S_NUM < 10}">0</span><span
+						th:text="*{student.S_NUM}"></span></td>
+						<td th:text="*{API_LOCATE}"></td>
+						<td th:text="*{#dates.format(API_DATE, 'yyyy-MM-dd HH:mm')}"></td>
+						<td th:text="*{smallcontent.CONTENT_DETAIL}"></td>
+						<td th:if="*{APPROVED == 1}" th:text="承認済み"/>
+						<td th:if="*{UNAPPROVED == 1}" th:text="未承認"/>
+						<td th:if="*{DENIED == 1}" th:text="拒否"/>
+
+
+					</tr>
+
+				</tbody>
+
+			</table>
+
+		</div>
+
+
+
+
+		<th:block th:insert="fragments/menubar :: footer"></th:block>
+
+
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragments/base :: header"></th:block>
+
+</head>
+<body>
+
+	<div id="pagebody">
+		<th:block th:insert="fragments/menubar :: header"></th:block>
+
+
+		<th:block th:insert="fragments/menubar :: menubar"></th:block>
+		<th:block th:insert="fragments/base :: script"></th:block>
+		<!-- メインコンテンツ -->
+		<div align="center">
+			<p>今日(mm/dd)の就活してる人 ここら辺にいい感じのテーブル</p>
+			<div th:each="object : ${data}" th:object="${object}">
+				<table id="detail">
+					<tbody>
+						<tr>
+							<td colspan="3" th:text="*{student.S_NAME}"></td>
+							<td th:text="クラス番号"></td>
+							<td><span th:text="*{student.department.D_VALUE}"></span><span
+								th:text="*{student.S_YEAR}+'A'+*{student.classroom.R_NAME}"></span><span
+								th:if="*{student.S_NUM < 10}">0</span><span
+								th:text="*{student.S_NUM}"></span></td>
+						</tr>
+						<tr>
+							<td rowspan="2" th:text="日時"></td>
+							<td th:text="自"></td>
+							<td colspan="3" th:text="*{API_DATE}"></td>
+						</tr>
+						<tr>
+							<td th:text="至"></td>
+							<td colspan="3" th:text="*{API_DATE_END}"></td>
+						</tr>
+						<tr>
+							<td th:text="場所"></td>
+							<td colspan="4" th:text="*{API_LOCATE}"></td>
+						</tr>
+						<tr>
+							<td th:text="内容"></td>
+							<td colspan="4" th:text="*{smallcontent.CONTENT_DETAIL}"></td>
+						</tr>
+						<tr>
+							<td th:colspan="5" th:text="会社名"></td>
+						</tr>
+						<tr th:each="company : ${comlist}" th:object="${company}">
+							<td colspan="5" th:text="*{company.C_NAME}"></td>
+						</tr>
+						<tr>
+							<td th:text="出欠"></td>
+							<td><div th:switch="*{API_ATTEND}">
+									<span th:case="1" th:text="欠席"></span><span th:case="2"
+										th:text="1コマ目遅刻"></span><span th:case="3" th:text="2コマ目遅刻"></span><span
+										th:case="4" th:text="3コマ目遅刻"></span><span th:case="5"
+										th:text="4コマ目遅刻"></span><span th:case="6" th:text="1コマ目早退"></span><span
+										th:case="7" th:text="2コマ目早退"></span><span th:case="8"
+										th:text="3コマ目早退"></span><span th:case="9" th:text="4コマ目早退"></span><span
+										th:case="*">ずっといる</span>
+								</div></td>
+							<td colspan="3" th:text="*{ATTEND_INFO}"></td>
+
+						</tr>
+					</tbody>
+				</table>
+
+
+				<div th:if="*{APPROVED = 0}">
+					<form th:action="@{/application/commit}" method="post" id="commit">
+						<input type="hidden" name="id" th:value="*{API_ID}" />
+						<textarea name="hyouka" rows="4" cols="40"
+							placeholder="ここに感想を記入してください。"></textarea>
+						<button type="submit" name="approved" value="0">承認</button>
+						<button type="submit" name="approved" value="1">再提出</button>
+						<button type="submit" name="approved" value="2">拒否</button>
+					</form>
+				</div>
+			</div>
+
+
+			<th:block th:insert="fragments/menubar :: footer"></th:block>
+
+		</div>
+</body>
+
+</html>
