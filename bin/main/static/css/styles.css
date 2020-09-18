@@ -10,7 +10,7 @@ body {
 }
 
 .box{
-    wide:100%;
+
     text-align:center;
 }
 
@@ -28,7 +28,7 @@ input[type="text"]{
     margin-bottom:0.5em;
 	height:2em;
 	line-height:2em;
-	paddhing:1em;
+
 
 }
 
@@ -39,6 +39,5 @@ input[type="password"]{
     margin-bottom:0.5em;
     height:2em;
     line-height:2em;
-    paddhing:1em;
 
 }

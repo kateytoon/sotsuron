@@ -13,7 +13,7 @@
 		<th:block th:insert="fragments/menubar :: menubar"></th:block>
 		<!-- メインコンテンツ -->
 		<div align="center">
-			<p>未承認報告</p>
+			<p>未承認報告一覧</p>
 			<div th:if="${Datas.size() == 0}">未承認報告はありません。</div>
 			<table th:if="${Datas.size() > 0}">
 				<thead>

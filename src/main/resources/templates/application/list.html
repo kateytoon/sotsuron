@@ -13,7 +13,7 @@
 		<th:block th:insert="fragments/menubar :: menubar"></th:block>
 		<!-- メインコンテンツ -->
 		<div align="center">
-			<p>今日(mm/dd)の就活してる人 ここら辺にいい感じのテーブル</p>
+			<p>未承認申請一覧</p>
 			<div th:if="${Datas.size() == 0}">未承認申請はありません。</div>
 			<table th:if="${Datas.size() > 0}">
 				<thead>

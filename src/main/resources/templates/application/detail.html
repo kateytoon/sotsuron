@@ -15,7 +15,6 @@
 		<th:block th:insert="fragments/base :: script"></th:block>
 		<!-- メインコンテンツ -->
 		<div align="center">
-			<p>今日(mm/dd)の就活してる人 ここら辺にいい感じのテーブル</p>
 			<div th:each="object : ${data}" th:object="${object}">
 				<table id="detail">
 					<tbody>
@@ -68,7 +67,7 @@
 				</table>
 
 
-				<div th:if="*{APPROVED = 0}">
+				<div th:if="*{UNAPPROVED = 1}">
 					<form th:action="@{/application/commit}" method="post" id="commit">
 						<input type="hidden" name="id" th:value="*{API_ID}" />
 						<textarea name="hyouka" rows="4" cols="40"
