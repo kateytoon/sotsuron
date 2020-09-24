@@ -6,9 +6,12 @@ package com.example.demo.controller;
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +22,15 @@ import com.example.demo.entity.Apicomment;
 import com.example.demo.entity.Application;
 import com.example.demo.entity.Repcomment;
 import com.example.demo.entity.Report;
+import com.example.demo.entity.Student;
+import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.ApicommentRepository;
 import com.example.demo.repository.AppliRepository;
 import com.example.demo.repository.ComlistRepository;
 import com.example.demo.repository.RepcommentRepository;
 import com.example.demo.repository.ReportRepository;
+import com.example.demo.repository.StudentRepository;
+import com.example.demo.service.UserAccountService;
 
 
 @Controller
@@ -40,50 +47,82 @@ public class DataController {
 	@Autowired
 	RepcommentRepository repcommentRepository;
 
+	@Autowired
+	AccountRepository accountRepository;
+
+	@Autowired
+	StudentRepository studentRepository;
+	@Autowired
+	UserAccountService sv = new UserAccountService();
 
 
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
 
-    @GetMapping("/login")
-    public String login() {
+	@PostMapping("/login")
+	public String loginPost() {
+		return "redirect:/login-error";
+	}
 
-        return "login";
-    }
+	@GetMapping("/login-error")
+	public String loginError(Model model) {
+		model.addAttribute("loginError", true);
+		return "login";
+	}
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String register(Model model) {
 
-    @PostMapping("/login")
-    public String loginPost() {
-        return "redirect:/login-error";
-    }
+		return "signup/register";
+	}
+	@RequestMapping(value = "/registerStudent", method = RequestMethod.POST)
+	public String registerStudent(@RequestParam("username") String name,@RequestParam("password") String pass,Model model) {
+		try {
+			sv.registerUser(name, pass);
 
-    @GetMapping("/login-error")
-    public String loginError(Model model) {
-        model.addAttribute("loginError", true);
-        return "login";
-    }
+			model.addAttribute("username", name);
+			model.addAttribute("student", new Student());
+			return "signup/registerStudent";
+		}catch(Exception e) {
+			model.addAttribute("error", "このユーザー名はすでに使用されています。");
+			register(model);
+			return "signup/register";
+		}
+	}
+	@PostMapping("/commitRegister")
+	public String commitRegister(@ModelAttribute("student") Student student,Model model) {
+		System.out.println(student.getAccount().getPassword());
+		student.setAccount(accountRepository.findByUsername(student.getAccount().getUsername()));
+		studentRepository.save(student);
+		return "login";
 
-    @RequestMapping("/top")
-    public String top() {
-        return "/top";
-    }
-    
-    
+	}
+
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
-		java.util.Date date = new java.util.Date();
-		Date d = new Date(date.getTime());
-		model.addAttribute("Datas", appRepository.findByTodayApplication(d));
-		return "index";
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth.getAuthorities().toArray()[0].toString().equals("ADMIN")) {
+			java.util.Date date = new java.util.Date();
+			Date d = new Date(date.getTime());
+			model.addAttribute("Datas", appRepository.findByTodayApplication(d));
+			return "teacheres/index";
+		}else {
+			model.addAttribute("Datas", appRepository.findByMyName(auth.getName()));
+			return "students/index";
+		}
 	}
 	@RequestMapping(value = "/application/list", method = RequestMethod.GET)
 	public String deniedApp(Model model) {
 		model.addAttribute("Datas", appRepository.findByUnapprovedApplication());
-		return "application/list";
+		return "teacheres/application/list";
 	}
 
 	@RequestMapping(value = "/report/list", method = RequestMethod.GET)
 	public String deniedReport(Model model1) {
 		model1.addAttribute("Datas", repRepository.findByUnsubmitReport());
-		return "report/list";
+		return "teacheres/report/list";
 	}
 
 
@@ -92,14 +131,14 @@ public class DataController {
 	public String seachdate(@RequestParam("since") Date date, Model model) {
 
 		model.addAttribute("Datas", appRepository.findDateApplication(date));
-		return"index";
+		return"teacheres/index";
 	}
 
 	@GetMapping("/app/detail/{id}")
 	public String detailAppData(@PathVariable String id,Model model) {
 		model.addAttribute("data",appRepository.findByAPI_ID(Integer.parseInt(id)));
 		model.addAttribute("comlist",comRepository.findByAPI_ID(Integer.parseInt(id)));
-		return "application/detail";
+		return "teacheres/application/detail";
 	}
 
 	@GetMapping("/rep/detail/{id}")
@@ -107,7 +146,7 @@ public class DataController {
 		model.addAttribute("data",repRepository.findByReIdAndUnSubmit(Integer.parseInt(id)));
 		int apiId = repRepository.findByApiId(Integer.parseInt(id)).getRE_ID();
 		model.addAttribute("comlist",comRepository.findByAPI_ID(apiId));
-		return "report/detail";
+		return "teacheres/report/detail";
 	}
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String search(Model model) {
@@ -134,7 +173,7 @@ public class DataController {
 		}
 		appRepository.save(api);
 		deniedApp(model);
-		return "application/list";
+		return "teacheres/application/list";
 	}
 	@RequestMapping(value = "/rep/commit", method = RequestMethod.POST)
 	public String repcommit(Model model,@RequestParam("hyouka") String hyouka,@RequestParam("approved") String approved,@RequestParam("id") String id) {
@@ -154,7 +193,7 @@ public class DataController {
 		}
 		repRepository.save(rep);
 		deniedApp(model);
-		return "application/list";
+		return "teacheres/application/list";
 	}
 
 	@RequestMapping(value = "/result", method = RequestMethod.POST)

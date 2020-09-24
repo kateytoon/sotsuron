@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sample App</title>
+<link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+	<div class="box">
+		<h1>学生情報登録</h1>
+		<form  th:action="@{/commitRegister}" method="post" >
+		<div th:object="${student}">
+		<input type="hidden" th:field="*{S_ID}"/>
+
+			<p>氏名</p>
+			<input type="text" th:field="*{S_NAME}" />
+			<p>メールアドレス</p>
+			<input type="email" th:field="*{S_MAIL}"/><br />
+			<div>
+			<p>学科</p>
+				<select name="D_ID"th:field="*{department.D_ID}">
+					<option value="1">R:大学併学科</option>
+					<option value="2">S:システムエンジニア科</option>
+					<option value="3">G:ゲームクリエイター科</option>
+					<option value="4">M:マルチメディアCG科</option>
+					<option value="5">B:ビジネス科</option>
+				</select>
+			</div>
+			<div>
+			<p>学年</p>
+			<input type="number" th:field="*{S_YEAR}"/>
+			</div>
+			<div>
+			<p>クラス</p>
+			<input type="number" th:field="*{classroom.R_ID}"/>
+			</div>
+			<div>
+			<p>出席番号</p>
+			<input type="number" th:field="*{S_NUM}"/>
+			</div>
+			<input type="hidden" value="0" th:field="*{S_FLG}"/>
+
+			<input type="hidden" name="account.username"th:value="${username}"/>
+			<button type="submit">登録</button>
+</div>
+		</form>
+	</div>
+</body>
+</html>

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <th:block th:insert="fragments/base :: header"></th:block>
+<th:block th:insert="fragments/menubar :: logout"></th:block>
 
 </head>
 <body>
@@ -10,7 +11,9 @@
 	<div id="pagebody">
 
 		<th:block th:insert="fragments/menubar :: header"></th:block>
+
 		<th:block th:insert="fragments/menubar :: menubar"></th:block>
+
 		<!-- メインコンテンツ -->
 		<div align="center">
 			<p>今日の就職活動</p>

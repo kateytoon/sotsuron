@@ -137,4 +137,11 @@ public interface AppliRepository extends JpaRepository<Application, String>{
 
 
 
+	//Student側
+
+	@Query("FROM Application a INNER JOIN a.student s WHERE s.account.username = :U_ID")
+   	List<Application> findByMyName(@Param("U_ID") String name);
+
+
+
 }

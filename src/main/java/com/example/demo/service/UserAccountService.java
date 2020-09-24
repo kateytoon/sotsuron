@@ -51,9 +51,9 @@ public class UserAccountService implements UserDetailsService {
 	private Collection<GrantedAuthority> getAuthorities(Account account){
 
 		if(account.isAdmin()){
-			return AuthorityUtils.createAuthorityList("ROLE_ADMIN","ROLE_USER");
+			return AuthorityUtils.createAuthorityList("ADMIN");
 		}else{
-			return AuthorityUtils.createAuthorityList("ROLE_USER");
+			return AuthorityUtils.createAuthorityList("USER");
 		}
 
 	}
@@ -62,12 +62,14 @@ public class UserAccountService implements UserDetailsService {
     public void registerAdmin(String username, String password) {
         Account user = new Account(username, passwordEncoder.encode(password),true);
         repository.save(user);
+        repository.flush();
     }
 
     @Transactional
     public void registerUser(String username, String password) {
         Account user = new Account(username, passwordEncoder.encode(password),false);
         repository.save(user);
+        repository.flush();
     }
 
 }

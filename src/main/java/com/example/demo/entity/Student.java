@@ -21,7 +21,6 @@ import javax.validation.constraints.Size;
 public class Student implements Serializable, Cloneable{
 	@Id
     @Column(name="S_ID")
-	@Size(max = 8)
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "i_seq")
     @SequenceGenerator(name = "i_seq" , sequenceName = "i_seq", allocationSize=1)
     private int S_ID;
@@ -45,7 +44,7 @@ public class Student implements Serializable, Cloneable{
 	@JoinColumn(name="R_ID")
 	private Classroom classroom;
 
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="U_ID", referencedColumnName = "U_ID")
 	private Account account;
 

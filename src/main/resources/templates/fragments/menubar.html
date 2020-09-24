@@ -28,15 +28,25 @@
 		<div id="header">
 			<h1>
 				<a th:href="@{/}"><img src="/images/ロゴ.png" alt="先生側"
-					width="420" height="80"></a>
+					width="500" height="80"></a>
 			</h1>
 		</div>
 	</th:block>
-	<th:block th:fragment="footer">
-		<!-- フッタ -->
-		<div id="footer">
-			<small>Copyright (c) 会社会社会社会社会社会社 All Rights Reserved.</small>
-		</div>
+
+	<th:block th:fragment="logout">
+	<div style="float:right">
+		<form th:action="@{/logout}" name="logout" method="POST">
+			<a href="javascript:logout.submit()">ログアウト</a>
+		</form>
+	</div>
 	</th:block>
+
+
+		<th:block th:fragment="footer">
+			<!-- フッタ -->
+			<div id="footer">
+				<small>Copyright (c) 会社会社会社会社会社会社 All Rights Reserved.</small>
+			</div>
+		</th:block>
 </body>
 </html>

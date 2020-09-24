@@ -3,21 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <th:block th:insert="fragments/base :: header"></th:block>
-<th:block th:insert="fragments/menubar :: logout"></th:block>
-
 </head>
 <body>
 
 	<div id="pagebody">
+		<th:block th:insert="fragments/student :: header"></th:block>
 
-		<th:block th:insert="fragments/menubar :: header"></th:block>
 
-		<th:block th:insert="fragments/menubar :: menubar"></th:block>
-
+		<th:block th:insert="fragments/student :: menubar"></th:block>
 		<!-- メインコンテンツ -->
 		<div align="center">
-			<p>今日の就職活動</p>
-			<div th:if="${Datas.size() == 0}">活動なし</div>
+			<p>未承認申請一覧</p>
+			<div th:if="${Datas.size() == 0}">申請はありません。</div>
 			<table th:if="${Datas.size() > 0}">
 				<thead>
 					<tr>
@@ -26,7 +23,7 @@
 						<th>クラス番号</th>
 						<th>場所</th>
 						<th>日時</th>
-						<th>内容</th>
+						<th>状態</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -51,7 +48,9 @@
 							th:text="*{student.S_NUM}"></span></td>
 						<td th:text="*{API_LOCATE}"></td>
 						<td th:text="*{#dates.format(API_DATE, 'yyyy-MM-dd HH:mm')}"></td>
-						<td th:text="*{smallcontent.CONTENT_DETAIL}"></td>
+						<td th:if="*{APPROVED == 1}" th:text="承認済み" />
+						<td th:if="*{UNAPPROVED == 1}" th:text="未承認" />
+						<td th:if="*{DENIED == 1}" th:text="拒否" />
 					</tr>
 
 				</tbody>
@@ -59,20 +58,13 @@
 			</table>
 
 		</div>
+		<a th:href="@{/students/application/create}">
+			<button type="button" >新規申請書作成</button>
+		</a>
 
-		<!-- サブメニュー（左カラム） -->
-		<div id="submenu">
-			<h2>検索</h2>
-			<form th:action="@{/date}" method="get">
-				<input type="date" id="start" name="since" min="2018-01-01"
-					max="2020-12-31"> <input
-					type="submit" value="変更">
-			</form>
-		</div>
 
-		<!-- インフォメーション（右カラム） -->
-		<th:block th:insert="fragments/menubar :: footer"></th:block>
 
+		<th:block th:insert="fragments/student :: footer"></th:block>
 
 	</div>
 </body>

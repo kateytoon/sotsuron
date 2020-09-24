@@ -32,16 +32,16 @@ public class Account implements Serializable,Cloneable{
     @SequenceGenerator(name = "i_seq" , sequenceName = "i_seq", allocationSize=1)
 	private int id;
 
-	@Column(name="U_ID",nullable = false, unique = true)
+	@Column(name="U_ID",unique = true)
 	private String username;
 
-	@Column(name="U_PASS",nullable = false)
+	@Column(name="U_PASS")
 	private String password;
 
-	@Column(name="ENABLED",nullable = false)
+	@Column(name="ENABLED")
     private boolean enabled;
 
-	@Column(name="ADMIN",nullable = false)
+	@Column(name="ADMIN")
     private boolean admin;
 
 

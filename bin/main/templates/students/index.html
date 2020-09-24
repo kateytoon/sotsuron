@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <th:block th:insert="fragments/base :: header"></th:block>
-<th:block th:insert="fragments/menubar :: logout"></th:block>
 
 </head>
 <body>
 
 	<div id="pagebody">
 
-		<th:block th:insert="fragments/menubar :: header"></th:block>
+		<th:block th:insert="fragments/student :: logout"></th:block>
+		<th:block th:insert="fragments/student :: header"></th:block>
 
-		<th:block th:insert="fragments/menubar :: menubar"></th:block>
+		<th:block th:insert="fragments/student :: menubar"></th:block>
 
 		<!-- メインコンテンツ -->
 		<div align="center">
@@ -65,13 +65,12 @@
 			<h2>検索</h2>
 			<form th:action="@{/date}" method="get">
 				<input type="date" id="start" name="since" min="2018-01-01"
-					max="2020-12-31"> <input
-					type="submit" value="変更">
+					max="2020-12-31"> <input type="submit" value="変更">
 			</form>
 		</div>
 
 		<!-- インフォメーション（右カラム） -->
-		<th:block th:insert="fragments/menubar :: footer"></th:block>
+		<th:block th:insert="fragments/student :: footer"></th:block>
 
 
 	</div>
