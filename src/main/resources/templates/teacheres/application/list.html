@@ -48,7 +48,8 @@
 						th:if="*{student.S_NUM < 10}">0</span><span
 						th:text="*{student.S_NUM}"></span></td>
 						<td th:text="*{API_LOCATE}"></td>
-						<td th:text="*{#dates.format(API_DATE, 'yyyy-MM-dd HH:mm')}"></td>
+						<td th:text="*{#temporals.format(API_DATE, 'yyyy年MM月dd日 HH:mm')}"></td>
+
 					</tr>
 
 				</tbody>

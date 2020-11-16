@@ -4,21 +4,33 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 @Entity
 @Table(name="COMPANY")
 public class Company {
+
+
+
+
+	public Company(String c_NAME, String c_URL ) {
+
+		C_NAME = c_NAME;
+		C_URL = c_URL;
+
+	}
+
+	public Company() {
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
 	@Id
 	@Column(name="C_ID")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "i_seq")
-	@SequenceGenerator(name = "i_seq" , sequenceName = "i_seq", allocationSize=1)
-	@Size(max = 8)
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "i_seq")
+	//@SequenceGenerator(name = "i_seq" , sequenceName = "i_seq", allocationSize=1)
+	//@Size(max = 8)
     private int C_ID;
 
 	@Column(name="C_NAME")

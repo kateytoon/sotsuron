@@ -51,32 +51,32 @@ public class Apicomment {
 		CO_TIME = new Date();
 	}
 
-	public int getCO_ID() {
-		return CO_ID;
-	}
-
-	public void setCO_ID(int cO_ID) {
-		CO_ID = cO_ID;
+	public String getAPI_COMMENT() {
+		return API_COMMENT;
 	}
 
 	public Application getApplication() {
 		return application;
 	}
 
-	public void setApplication(Application application) {
-		this.application = application;
+	public int getCO_ID() {
+		return CO_ID;
 	}
 
-	public String getAPI_COMMENT() {
-		return API_COMMENT;
+	public Date getCO_TIME() {
+		return CO_TIME;
 	}
 
 	public void setAPI_COMMENT(String aPI_COMMENT) {
 		API_COMMENT = aPI_COMMENT;
 	}
 
-	public Date getCO_TIME() {
-		return CO_TIME;
+	public void setApplication(Application application) {
+		this.application = application;
+	}
+
+	public void setCO_ID(int cO_ID) {
+		CO_ID = cO_ID;
 	}
 
 	public void setCO_TIME(Date cO_TIME) {

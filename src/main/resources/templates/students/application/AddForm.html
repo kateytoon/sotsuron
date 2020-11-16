@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragments/base :: header"></th:block>
+</head>
+<body>
+
+	<div id="pagebody">
+		<th:block th:insert="fragments/student :: header"></th:block>
+
+
+		<th:block th:insert="fragments/student :: menubar"></th:block>
+
+		<form th:action="@{/students/application/commit}" th:object="${api}" method="post">
+			<input type="hidden" th:field="*{API_ID}"/>
+			<input type="hidden" th:field="*{student.S_ID}" th:value="${Datas.S_ID}" />
+			<input type="hidden" th:field="*{UNAPPROVED}" th:value=1/>
+			<label>クラス番号</label><span th:text="${Datas.department.D_VALUE}"></span><span
+								th:text="${Datas.S_YEAR}+'A'+${Datas.classroom.R_NAME}"></span><span
+								th:if="${Datas.S_NUM < 10}">0</span><span
+								th:text="${Datas.S_NUM}"></span><br>
+
+			<label>氏名</label><span th:text="${Datas.S_NAME}"></span><br>
+			<label>日時</label><input type="datetime-local"name="startdate" th:field="*{API_DATE}">～<input type="datetime-local"name="enddate"th:field="*{API_DATE_END}"><br>
+			<label>場所</label><input type="text"name="locate" th:field="*{API_LOCATE}"><br>
+			<label>内容</label><select name="content"th:field="*{smallcontent.CONTENT_ID}">
+					<option value="1">単独企業説明会</option>
+					<option value="2">合同企業説明会</option>
+					<option value="3">試験</option>
+					<option value="4">インターンシップ</option>
+			</select><br>
+			<label>会社名 1</label><input type="text"name="company"><br>
+			<label>会社URL</label><input type="url"name="company"><br>
+			<label>会社名 2</label><input type="text"name="company"><br>
+			<label>会社URL</label><input type="url"name="company"><br>
+			<label>会社名 3</label><input type="text"name="company"><br>
+			<label>会社URL</label><input type="url"name="company"><br>
+			<label>会社名 4</label><input type="text"name="company"><br>
+			<label>会社URL</label><input type="url"name="company"><br>
+			<label>会社名 5</label><input type="text"name="company"><br>
+			<label>会社URL</label><input type="url"name="company"><br>
+			<label>出欠</label><select name="attend"th:field="*{API_ATTEND}">
+					<option value="1">欠席</option>
+					<option value="2">1コマ目遅刻</option>
+					<option value="3">2コマ目遅刻</option>
+					<option value="4">3コマ目遅刻</option>
+					<option value="5">4コマ目遅刻</option>
+					<option value="6">1コマ目早退</option>
+					<option value="7">2コマ目早退</option>
+					<option value="8">3コマ目早退</option>
+					<option value="9">4コマ目早退</option>
+					<option value="10">全コマ出席</option>
+			</select><br>
+			<label>欠席又は出席時間（欠席の場合は未入力可能）</label><input type="datetime-local"name="startdate" th:field="*{ATTEND_INFO}">
+			<input type = "submit">
+		</form>
+		</div>
+
+		<th:block th:insert="fragments/student :: footer"></th:block>
+
+</body>
+
+</html>

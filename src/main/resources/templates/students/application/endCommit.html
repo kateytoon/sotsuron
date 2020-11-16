@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragments/base :: header"></th:block>
+</head>
+<body>
+
+	<div id="pagebody">
+		<th:block th:insert="fragments/student :: header"></th:block>
+
+
+		<h3>登録しました</h3>
+		<form th:action="@{/students/application/create}"><input type="submit" value="続けて申請する"></form>
+		<form th:action="@{/students/application/list}"><input type="submit" value="一覧へ戻る"></form>
+		<th:block th:insert="fragments/student :: footer"></th:block>
+
+	</div>
+</body>
+
+</html>

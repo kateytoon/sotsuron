@@ -26,8 +26,6 @@ public class Smallcontent {
 	@Size(max = 50)
     private String CONTENT_DETAIL;
 
-	@OneToMany(mappedBy="smallcontent", cascade=CascadeType.ALL)
-    private List<Report> report;
 
 	@OneToMany(mappedBy="smallcontent", cascade=CascadeType.ALL)
     private List<Application> application;
@@ -54,13 +52,7 @@ public class Smallcontent {
 		CONTENT_ID = cONTENT_ID;
 	}
 
-	public List<Report> getReport() {
-		return report;
-	}
 
-	public void setReport(List<Report> report) {
-		this.report = report;
-	}
 
 
 

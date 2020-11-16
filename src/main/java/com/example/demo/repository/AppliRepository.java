@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +15,7 @@ import com.example.demo.entity.Application;
 public interface AppliRepository extends JpaRepository<Application, String>{
 
 	@Query("from Application where Approved = 1 AND :date >= TRUNC(API_DATE) AND :date <= TRUNC(API_DATE_END)")
-	  public List<Application> findByTodayApplication(@Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date);
+	  public List<Application> findByTodayApplication(@Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date);
 
 	@Query("from Application where DENIED = 1")
 	  public List<Application> findByDeniedApplication();
@@ -27,13 +27,12 @@ public interface AppliRepository extends JpaRepository<Application, String>{
 
 	@Query("from Application where :date >= TRUNC(API_DATE) AND :date <= TRUNC(API_DATE_END)")
 	public List<Application> findDateApplication(
-	  @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date);
+	  @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date);
 
 	@Query("from Application where API_ID = :id")
 	  public Application findByAPI_ID(@Param("id") int id);
 
-	@Query("FROM Application a INNER JOIN a.student WHERE a.student.S_NAME = :S_NAME ORDER BY a.API_ID")
-	    List<Application> findByNAME(@Param("S_NAME") String name);
+
 
 
 	//検索用
@@ -137,10 +136,7 @@ public interface AppliRepository extends JpaRepository<Application, String>{
 
 
 
-	//Student側
 
-	@Query("FROM Application a INNER JOIN a.student s WHERE s.account.username = :U_ID")
-   	List<Application> findByMyName(@Param("U_ID") String name);
 
 
 

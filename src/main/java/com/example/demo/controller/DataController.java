@@ -4,6 +4,8 @@ package com.example.demo.controller;
 
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -104,18 +106,18 @@ public class DataController {
 	public String index(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth.getAuthorities().toArray()[0].toString().equals("ADMIN")) {
-			java.util.Date date = new java.util.Date();
-			Date d = new Date(date.getTime());
-			model.addAttribute("Datas", appRepository.findByTodayApplication(d));
+			LocalDateTime date1 = LocalDateTime.now();
+			model.addAttribute("Datas", appRepository.findByTodayApplication(date1));
 			return "teacheres/index";
 		}else {
-			model.addAttribute("Datas", appRepository.findByMyName(auth.getName()));
+			model.addAttribute("Datas", studentRepository.findByMyName(auth.getName()));
 			return "students/index";
 		}
 	}
 	@RequestMapping(value = "/application/list", method = RequestMethod.GET)
 	public String deniedApp(Model model) {
 		model.addAttribute("Datas", appRepository.findByUnapprovedApplication());
+		//System.out.println(appRepository.findByUnapprovedApplication().get(0).getAPI_DATE().getClass());
 		return "teacheres/application/list";
 	}
 
@@ -129,8 +131,10 @@ public class DataController {
 
 	@RequestMapping(value = "/date", method = RequestMethod.GET)
 	public String seachdate(@RequestParam("since") Date date, Model model) {
-
-		model.addAttribute("Datas", appRepository.findDateApplication(date));
+		System.out.println(date);
+		LocalDate localDate = date.toLocalDate();
+		System.out.println(localDate);
+		model.addAttribute("Datas", appRepository.findDateApplication((localDate.atStartOfDay())));
 		return"teacheres/index";
 	}
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.CompanyList;
 
 @Repository
-public interface ComlistRepository extends JpaRepository<CompanyList, String>{
+public interface ComlistRepository extends JpaRepository<CompanyList, Integer>{
 
 
 	@Query("from CompanyList where API_ID = :id")

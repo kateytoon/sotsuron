@@ -28,7 +28,7 @@
 
 					<tr th:each="object : ${Datas}" th:object="${object}">
 
-						<td th:text="*{#dates.format(application.API_DATE, 'yyyy-MM-dd HH:mm')}"></td>
+						<td th:text="*{#temporals.format(Application.API_DATE, 'yyyy年MM月dd日 HH:mm')}"></td>
 						<td><a th:href="@{/rep/detail/{id}(id=*{RE_ID})}" th:text="*{application.student.S_NAME}"></a></td>
 						<td><span th:text="*{application.student.S_YEAR}+'A'+*{application.student.classroom.R_NAME}"></span><span
 						th:if="*{application.student.S_NUM < 10}">0</span><span

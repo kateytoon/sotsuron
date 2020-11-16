@@ -48,5 +48,15 @@
 				<small>Copyright (c) 会社会社会社会社会社会社 All Rights Reserved.</small>
 			</div>
 		</th:block>
+
+		<th:block th:fragment="date">
+		<div id="submenu">
+			<h2>検索</h2>
+			<form th:action="@{/date}" method="get">
+				<input type="date" id="start" name="since" min="2018-01-01"
+					max="2020-12-31" required/> <input type="submit" value="変更" >
+			</form>
+		</div>
+		</th:block>
 </body>
 </html>

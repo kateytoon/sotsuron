@@ -11,6 +11,11 @@
 
 
 		<th:block th:insert="fragments/student :: menubar"></th:block>
+		<div align="center">
+		<a th:href="@{/students/application/create}">
+			<button type="button" >新規申請書作成</button>
+		</a>
+		</div>
 		<!-- メインコンテンツ -->
 		<div align="center">
 			<p>未承認申請一覧</p>
@@ -47,7 +52,7 @@
 							th:if="*{student.S_NUM < 10}">0</span><span
 							th:text="*{student.S_NUM}"></span></td>
 						<td th:text="*{API_LOCATE}"></td>
-						<td th:text="*{#dates.format(API_DATE, 'yyyy-MM-dd HH:mm')}"></td>
+						<td th:text="*{#temporals.format(API_DATE, 'yyyy年MM月dd日 HH:mm')}"></td>
 						<td th:if="*{APPROVED == 1}" th:text="承認済み" />
 						<td th:if="*{UNAPPROVED == 1}" th:text="未承認" />
 						<td th:if="*{DENIED == 1}" th:text="拒否" />
@@ -58,9 +63,6 @@
 			</table>
 
 		</div>
-		<a th:href="@{/students/application/create}">
-			<button type="button" >新規申請書作成</button>
-		</a>
 
 
 

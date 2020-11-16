@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -18,6 +17,34 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="REPORT")
 public class Report {
+
+
+
+
+
+
+	public Report(String rE_IMP, Application application, int sUBMITTED, int uNAPPROVED, int uNSUBMIT,
+			int rESUBMIT, Smallcontent smallcontent) {
+
+		RE_IMP = rE_IMP;
+		this.application = application;
+		SUBMITTED = sUBMITTED;
+		UNAPPROVED = uNAPPROVED;
+		UNSUBMIT = uNSUBMIT;
+		RESUBMIT = rESUBMIT;
+	}
+	public Report() {
+
+	}
+
+	public List<Repcomment> getRepcomment() {
+		return repcomment;
+	}
+
+	public void setRepcomment(List<Repcomment> repcomment) {
+		this.repcomment = repcomment;
+	}
+
 	@Id
     @Column(name="RE_ID")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "i_seq")
@@ -48,10 +75,6 @@ public class Report {
 
     private int RESUBMIT;
 
-	@ManyToOne
-	@JoinColumn(name="CONTENT_ID")
-	private Smallcontent smallcontent;
-
 	@OneToMany(mappedBy="report", cascade=CascadeType.ALL)
     private List<Repcomment> repcomment;
 
@@ -68,12 +91,6 @@ public class Report {
 
 	public int getRESUBMIT() {
 		return RESUBMIT;
-	}
-
-
-
-	public Smallcontent getSmallcontent() {
-		return smallcontent;
 	}
 
 	public int getSUBMITTED() {
@@ -104,17 +121,9 @@ public class Report {
 		RESUBMIT = rESUBMIT;
 	}
 
-
-
-	public void setSmallcontent(Smallcontent smallcontent) {
-		this.smallcontent = smallcontent;
-	}
-
 	public void setSUBMITTED(int sUBMITTED) {
 		SUBMITTED = sUBMITTED;
 	}
-
-
 
 	public void setUNAPPROVED(int uNAPPROVED) {
 		UNAPPROVED = uNAPPROVED;
@@ -123,7 +132,5 @@ public class Report {
 	public void setUNSUBMIT(int uNSUBMIT) {
 		UNSUBMIT = uNSUBMIT;
 	}
-
-
 
 }

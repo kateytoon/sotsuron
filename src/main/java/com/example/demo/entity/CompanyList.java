@@ -9,7 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="COMPANYLIST")
@@ -18,8 +17,11 @@ public class CompanyList {
 	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "i_seq")
 	@SequenceGenerator(name = "i_seq" , sequenceName = "i_seq", allocationSize=1)
-	@Size(max = 8)
     private int ID;
+
+	public CompanyList() {
+
+	}
 
 	@ManyToOne
 	@JoinColumn(name="API_ID")
@@ -28,6 +30,13 @@ public class CompanyList {
 	@ManyToOne
 	@JoinColumn(name="C_ID")
 	private Company company;
+
+
+
+	public CompanyList(Application api,Company com) {
+		setApplication(api);
+		setCompany(com);
+	}
 
 	public int getID() {
 		return ID;
